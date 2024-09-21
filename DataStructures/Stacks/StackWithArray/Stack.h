@@ -10,40 +10,42 @@ public:
         arr = new T[max_size];
 
     }
-    bool is_full()
+    bool is_full() const
     {
         return (top == max_size);
     }
+
     bool is_empty() const
     {
-
         return (top == 0);
     }
 
     void  push (const T& element)
     {
+        if(!is_full())
         arr[top++] = element;
     }
 
     void  pop(T& element)
     {
+        if(!is_empty()){
         element = arr[top-1];
         top--;
-
+        }
     }
 
-    void stack_top(T& element)
+    void stack_top(T& element) const 
     {
+         if(!is_empty())
         element  = arr[top-1];
-
     }
 
-    int length()
+    int length() const
     {
         return top;
-
     }
-    int size()
+
+    int size() const
     {
         return max_size;
     }
@@ -51,15 +53,13 @@ public:
     void clear()
     {
         top = 0;
-
     }
 
     void traverse (void (*func) (const T& stack_element))
     {
-        for(int i{top-1}; i>=0 ; --i )
+        for(int i{top-1}; i >= 0 ; --i )
         {
             func(arr[i]);
-
         }
     }
 
@@ -75,7 +75,6 @@ public:
         if(this != &otherStack)
         {
             copy_stack(otherStack);
-
         }
         return *this;
     }
@@ -96,23 +95,17 @@ private:
         if(!is_empty())
         {
             delete[] arr;
-
         }
 
         max_size = otherStack.max_size;
         top = otherStack.top;
         arr = new T [max_size];
 
-
         for (int i {0}; i < top ; ++i)
         {
             arr[i] = otherStack.arr[i];
-
         }
     }
-
-
-
 };
 
 #endif // STACK_H
